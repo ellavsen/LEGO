@@ -1,0 +1,29 @@
+# Секреты
+.env
+
+# Python
+venv/
+__pycache__/
+*.pyc
+
+# Модели и тяжёлые артефакты (регенерируются)
+*.pt
+*.zip
+data/raw/
+data/ldraw/
+data/renders/
+data/index*/
+data/confirm_crops/
+
+# Android
+android/build/
+android/app/build/
+android/.gradle/
+android/.kotlin/
+android/local.properties
+*.apk
+
+# Прочее
+.DS_Store
+.claude/
+.idea/

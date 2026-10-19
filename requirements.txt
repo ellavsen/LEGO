@@ -1,0 +1,32 @@
+# BrickIndex — зависимости backend/пайплайна данных (Python 3.13, venv/)
+# Установка: venv/bin/pip install -r requirements.txt
+# Раскомментируйте блоки по мере прохождения спринтов (LEGO.md, прил. А),
+# чтобы не тянуть гигабайты ML-зависимостей раньше времени.
+
+# --- Спринт 0: данные и каталог (Postgres) ---
+psycopg[binary]>=3.2,<4
+
+# --- Спринт 1: офлайн-рендер эталонов ---
+# Blender + аддон ImportLDraw ставятся отдельно (не через pip).
+
+# --- Спринт 2: эмбеддинги и retrieval (LEGO.md §4.1, §4.4) ---
+# Эмбеддер: DINOv2-base (DINOv3 gated на HF — фолбэк по Прил. Б.1;
+# для DINOv3 нужен HF-токен с принятой лицензией, см. CLAUDE.md)
+torch
+torchvision                 # нужен AutoImageProcessor (transformers 5.x)
+transformers>=4.56          # поддержка DINOv2/DINOv3
+faiss-cpu                   # на GPU-сервере заменить на faiss-gpu
+pillow
+fastapi
+uvicorn[standard]
+python-multipart            # загрузка фото в /identify
+
+# --- Спринт 3: сегментация (LEGO.md §4.2) ---
+# SAM 3 gated на HF -> используется SAM 2.1 base (свободные веса ultralytics);
+# переключение: BRICKINDEX_SAM=sam3.pt + HF-токен
+ultralytics>=8.3.237
+scipy                       # связные компоненты и морфология в segmentation.py
+
+# --- Спринт 4: цвет (LAB, баланс белого, LEGO.md §9) ---
+opencv-python
+numpy
